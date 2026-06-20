@@ -1,0 +1,198 @@
+/* ── Reset / Base ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #0f172a;
+  --surface:  #1e293b;
+  --surface2: #334155;
+  --border:   #475569;
+  --text:     #f1f5f9;
+  --muted:    #94a3b8;
+  --green:    #22c55e;
+  --amber:    #f59e0b;
+  --red:      #ef4444;
+  --blue:     #3b82f6;
+  --gold:     #fbbf24;
+}
+
+body { background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; font-size: 14px; }
+
+/* ── App shell ────────────────────────────────────────────────────────────── */
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.app-header {
+  background: linear-gradient(135deg, #1a237e 0%, #0d47a1 50%, #1565c0 100%);
+  padding: 1.25rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+  border-bottom: 2px solid var(--gold);
+}
+.app-header h1 { font-size: 1.6rem; font-weight: 800; color: #fff; }
+.subtitle { color: #90caf9; font-size: 0.8rem; margin-top: 2px; }
+
+/* ── Sim controls ─────────────────────────────────────────────────────────── */
+.sim-controls { display: flex; align-items: center; gap: 0.75rem; }
+.ctrl-label { color: var(--text); display: flex; align-items: center; gap: 0.4rem; }
+.n-input {
+  width: 90px; padding: 0.35rem 0.5rem;
+  background: #0f172a; color: var(--text); border: 1px solid var(--border);
+  border-radius: 6px; font-size: 0.9rem;
+}
+.run-btn {
+  background: var(--gold); color: #0f172a; font-weight: 700;
+  border: none; border-radius: 8px; padding: 0.5rem 1.25rem;
+  cursor: pointer; font-size: 0.9rem; transition: opacity .15s;
+}
+.run-btn:hover:not(:disabled) { opacity: 0.85; }
+.run-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ── Progress bar ─────────────────────────────────────────────────────────── */
+.progress-bar-wrap { height: 4px; background: var(--surface2); }
+.progress-bar { height: 100%; background: var(--gold); transition: width .1s linear; }
+
+/* ── Tabs ─────────────────────────────────────────────────────────────────── */
+.tabs { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 1rem; }
+.tab {
+  background: transparent; border: none; color: var(--muted);
+  padding: 0.75rem 1.25rem; cursor: pointer; font-size: 0.875rem;
+  border-bottom: 3px solid transparent; transition: color .15s, border-color .15s;
+}
+.tab:hover { color: var(--text); }
+.tab-active { color: var(--gold) !important; border-bottom-color: var(--gold) !important; font-weight: 600; }
+
+/* ── Main content ─────────────────────────────────────────────────────────── */
+.main-content { flex: 1; padding: 1.25rem 1rem; }
+
+/* ── Groups grid ──────────────────────────────────────────────────────────── */
+.groups-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1rem;
+}
+.group-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; overflow: hidden;
+}
+.group-title {
+  background: var(--surface2); padding: 0.5rem 0.75rem;
+  font-size: 0.85rem; font-weight: 700; color: var(--gold);
+  letter-spacing: .05em; text-transform: uppercase;
+}
+
+/* ── Standings table ──────────────────────────────────────────────────────── */
+.standings-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.standings-table th {
+  background: var(--surface2); color: var(--muted);
+  padding: 0.3rem 0.4rem; text-align: center; font-weight: 600; font-size: 0.7rem;
+}
+.standings-table td { padding: 0.35rem 0.4rem; text-align: center; border-top: 1px solid #1e293b; }
+.standings-table .team-col { text-align: left; }
+.standings-table tr:hover { background: rgba(255,255,255,.04); }
+
+.qualify-auto { border-left: 3px solid var(--green); }
+.qualify-maybe { border-left: 3px solid var(--amber); }
+
+.team-name { display: inline-flex; align-items: center; gap: 0.3rem; white-space: nowrap; }
+.flag { font-size: 1rem; }
+.fifa-rank { font-size: 0.65rem; color: var(--muted); margin-left: 0.25rem; }
+.pts { font-weight: 700; color: var(--gold); }
+.pos { color: var(--green); }
+.neg { color: var(--red); }
+.rank-num { color: var(--muted); font-size: 0.7rem; }
+.adv-pct { font-weight: 600; }
+
+.group-footer { padding: 0.4rem 0.6rem; font-size: 0.7rem; color: var(--muted); }
+.qualify-auto-dot { color: var(--green); }
+.qualify-maybe-dot { color: var(--amber); }
+
+/* ── Bracket ──────────────────────────────────────────────────────────────── */
+.bracket-outer { display: flex; flex-direction: column; gap: 1.5rem; }
+.bracket-section { }
+.bracket-round-title {
+  font-size: 0.85rem; color: var(--gold); text-transform: uppercase;
+  letter-spacing: .08em; font-weight: 700; margin-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border); padding-bottom: 0.35rem;
+}
+
+.r32-grid  { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.5rem; }
+.r16-grid  { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.5rem; }
+.qf-grid   { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.75rem; }
+.sf-grid   { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.75rem; }
+
+.match-slot {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden;
+}
+.match-team {
+  padding: 0.4rem 0.6rem;
+  display: flex; align-items: center; gap: 0.3rem;
+  border-bottom: 1px solid var(--border);
+  transition: background .1s;
+}
+.match-team:last-child { border-bottom: none; }
+.match-winner {
+  background: rgba(34, 197, 94, 0.15);
+  font-weight: 700; color: var(--green);
+}
+.tbd { color: var(--muted); font-style: italic; font-size: 0.8rem; }
+
+.mc-hint { font-size: 0.7rem; color: var(--muted); text-align: center; margin-top: 0.2rem; }
+.center { text-align: center; }
+
+.final-match { border: 2px solid var(--gold); }
+.final-section { text-align: center; }
+
+/* ── Champion banner ──────────────────────────────────────────────────────── */
+.champion-banner {
+  background: linear-gradient(135deg, #78350f, #92400e, #b45309);
+  border: 2px solid var(--gold);
+  border-radius: 12px; padding: 1.25rem; text-align: center;
+}
+.champion-label { font-size: 1.5rem; font-weight: 800; color: var(--gold); }
+.champion-team { font-size: 1.6rem; font-weight: 800; color: #fff; margin: 0.4rem 0; }
+.champion-team .team-name { justify-content: center; }
+.champion-team .flag { font-size: 2rem; }
+.champion-pct { color: #fde68a; font-size: 0.9rem; }
+
+/* ── Probability table ────────────────────────────────────────────────────── */
+.prob-table-wrap { }
+.prob-table-wrap h3 { margin-bottom: 0.75rem; color: var(--gold); }
+.prob-table-scroll { overflow-x: auto; }
+.prob-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+.prob-table th {
+  background: var(--surface2); color: var(--muted);
+  padding: 0.4rem 0.5rem; text-align: center;
+  font-weight: 600; white-space: nowrap; font-size: 0.72rem;
+  border-bottom: 1px solid var(--border);
+}
+.prob-table th:hover { color: var(--text); }
+.prob-table td { padding: 0.3rem 0.5rem; text-align: center; border-top: 1px solid #1a2744; }
+.prob-table tr.even { background: rgba(255,255,255,.02); }
+.prob-table tr:hover { background: rgba(255,255,255,.05); }
+.sorted-col { background: rgba(251,191,36,.07); }
+
+.bar-cell { display: flex; align-items: center; gap: 0.4rem; min-width: 90px; }
+.bar-bg { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 3px; transition: width .3s; }
+.bar-label { font-size: 0.72rem; min-width: 36px; text-align: right; }
+
+/* ── Empty state ──────────────────────────────────────────────────────────── */
+.empty-state {
+  text-align: center; padding: 3rem 1rem; color: var(--muted);
+}
+.empty-state p { margin-bottom: 1rem; font-size: 1rem; }
+
+/* ── Footer ───────────────────────────────────────────────────────────────── */
+.app-footer {
+  background: var(--surface); border-top: 1px solid var(--border);
+  padding: 0.6rem 1rem; font-size: 0.7rem; color: var(--muted);
+  text-align: center;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .app-header { flex-direction: column; align-items: flex-start; }
+  .sim-controls { width: 100%; justify-content: space-between; }
+  .groups-grid { grid-template-columns: 1fr; }
+}
